@@ -10,4 +10,21 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# Recent dirs handling
+# Use cdr & friends. See http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Recent-Directories
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+
+# Allow clobbering of file redirection
+# By default zsh doesn't let you overwrite existing files with > or create
+# new files with >> if they don't exist. This option reverts that setting.
+setopt CLOBBER
+
+# Glob dot files
+# ls ~/*pro* should display ~/.profile
+setopt GLOBDOTS
+
+# Comments after commands are acceptable
+# $ ls # Comments allowed after a comment :)
+setopt interactivecomments
